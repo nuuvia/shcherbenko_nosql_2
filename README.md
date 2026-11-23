@@ -50,10 +50,6 @@ Texts were encoded as `title + " [SEP] " + abstract` using `allenai/specter2_bas
 | Processing time | ~44 minutes |
 | Output | `embeddings/embeddings.npy` |
 
-**Execution evidence:**
-
-![Embedding generation output](output/02_embed.png)
-
 #### Why are cosine similarity and dot product equivalent for normalized embeddings?
 
 Cosine similarity is the dot product divided by both vector lengths. With L2-normalized embeddings, both lengths equal 1, so **cosine similarity equals dot product**.
@@ -81,10 +77,6 @@ Uploaded embeddings in batches of 100 using `upsert()`. Each vector includes a u
 | Final index count | 5,000 |
 
 The uploaded vector count matches the number of source articles. Metadata enables filtering by publication year and research category in subsequent searches.
-
-### Execution Evidence
-
-![Pinecone upload results](output/03_load_to_pinecone.png)
 
 ## Part 3 — Semantic Search and Similarity Metrics
 
@@ -121,10 +113,6 @@ No. For unit-length vectors, squared Euclidean distance equals `2 - 2 × cosine_
 **Q3. What happens without normalization?**
 
 Without normalization, dot product becomes sensitive to vector magnitude, potentially producing different rankings from cosine similarity. Euclidean distance also depends on magnitude, so the equivalence between all three ranking methods no longer holds.
-
-### Execution Evidence
-
-Full search output: `output/04_search_log.txt`
 
 ## Part 4 — Chunking Strategies
 
@@ -163,10 +151,6 @@ Fixed-size chunking may break sentences, removing important context and reducing
 
 Overlap repeats text between neighboring chunks, improving context preservation near boundaries. However, larger overlap increases the number of chunks, storage requirements, and embedding costs. Our fixed-size strategy used 20-word overlap, while sentence-aware chunking used none.
 
-### Execution Evidence
-
-![Chunking results](output/05_chunking.png)
-
 Full output: `output/05_chunking_log.txt`
 
 ## Part 5 — Hybrid Search
@@ -198,10 +182,6 @@ Yes. For the CNN query, *Scale Space Approximation in Convolutional Neural Netwo
 **Q3. How does the RRF parameter k affect rankings?**
 
 With `k=60`, differences between individual ranks have a smaller impact, favoring agreement across retrieval methods. With `k=1`, top-ranked documents receive substantially higher weight, making the final ranking more sensitive to the highest positions.
-
-### Execution Evidence
-
-Full output: `output/06_hybrid_search_log.txt`
 
 ## Part 6 — Analysis & Conclusions
 
